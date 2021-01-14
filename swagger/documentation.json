@@ -1,0 +1,145 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "title": "ingaia-fixed-price-api",
+    "version": "1.0.0",
+    "description": "api that returns the fixed price of the square meter"
+  },
+  "paths": {
+    "/prices": {
+      "get": {
+        "tags": [
+          "Price"
+        ],
+        "description": "Get last price",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Price"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Simple"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Simple"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Price"
+        ],
+        "description": "Creates a new price",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "price",
+            "description": "price to add",
+            "schema": {
+              "type": "object",
+              "required": [
+                "price"
+              ],
+              "properties": {
+                "price": {
+                  "type": "number",
+                  "example": 13
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Price"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Simple"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/Simple"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Price": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "price": {
+          "type": "number"
+        },
+        "created_at": {
+          "type": "string"
+        },
+        "updated_at": {
+          "type": "string"
+        }
+      }
+    },
+    "Simple": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "components": {},
+  "tags": []
+}
