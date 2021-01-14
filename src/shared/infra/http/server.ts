@@ -3,13 +3,14 @@ import 'express-async-errors';
 import 'reflect-metadata';
 import routes from './routes';
 import '../typeorm';
-import * as SwaggerUI from "swagger-ui-express";
-import cors from 'cors'
-// @ts-ignore
-import * as SwaggerDoc from "../../../../swagger/documentation.json";
-import '@shared/container';
-import * as dotenv from 'dotenv';
 import AppError from "@shared/errors/AppError";
+import '@shared/container';
+
+import * as SwaggerUI from "swagger-ui-express";
+import * as SwaggerDoc from "../../../documentation.json";
+import * as dotenv from 'dotenv';
+
+import cors from 'cors';
 
 
 dotenv.config();
