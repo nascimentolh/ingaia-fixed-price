@@ -1,112 +1,41 @@
-# DESAFIO MESA API
-
-### Teconologias
-
-- Node Js
-- Express
-- Typescript
-- TypeORM
-- JWT
-- Babel
-- PostgreSQL
-- Redis
-- Jest
+# DESAFIO INGAIA - API (PREÇO FIXO DO METRO QUADRADO)
 
 ### Como Utilizar
 
-Acesse https://mesa-app-challenge.herokuapp.com
+Acesse a documentação para mais detalhes como utilizar as rotas https://ingaia-fixed-price.herokuapp.com/docs
 
-```sh
-POST /users
-    Descrição: Rota utilizada para criar um usuário novo, e
-    poder utilizar os demais recursos
+### Como utilizar o projeto localmente
 
-    Request Body:
-    {
-        "name": "Jhon Doe", string
-        "email": "jhon@doe.com", string
-        "passowrd": "your password here" string
-    }
+- Certifique-se de ter o npm e o docker instalado em sua máquina.
+
+
+Clone o repositório e acesse a pasta, digite o comando abaixo para poder realizar a instalação das dependências:
+
 ```
-
-```sh
-POST /auth
-    Descrição: Rota autenticar o usuário
-
-    Request Body:
-    {
-        "email": "Jhon Doe",
-        "password": "your password here"
-    }
+npm install
 ```
-
-```sh
-GET /profile
-    Descrição: Rota que retorna o perfil do usuário cadastrado.
-
-    Request Header:
-        Authorization: Bearer TOKEN_JWT
-```
-
-```sh
-PUT /profile
-    Descrição: Rota para atualizar o perfil do usuário logado.
-
-    Request Header:
-        Authorization: Bearer TOKEN_JWT
-
-    Request Body:
-        {
-            "name": "Seu novo nome para atualizar", string
-            "email": "Seu novo email para atualizar", string
-            - Caso for atualizar a senha devera fornecer a
-            senha antiga. Do contrario os campos abaixo são
-            dispensavéis
-            "old_password": "Sua senha antiga", string
-            "password": "Sua nova senha para atualizar" string
-        }
-```
-
-```sh
-POST /localizations
-    Descrição: Rota para inserir uma localização
-
-    Request Header:
-        Authorization: Bearer TOKEN_JWT
-
-    Request Body:
-        {
-            "name": "Nome para sua localizacao", string
-            "lng": "Longitude da localizacao", float
-            "lat": "Latitude da localizacao", float
-        }
-    -- Pode ser utilizado localizaçoes fornecidas pelo google maps ao clicar sobre os locais para fazer um banco de dados com mais realidade.
-```
-
-```sh
-GET /localizations
-    Descrição: Rota para consultar as localizações já cadastradas por você
-    e por outros usuários.
-
-    Query Params:
-        ?type=map (Opcional)
-        -Retorna as localizações ordenadas pela distancia que elas se encontram do solicitante da requisição.
-
-    Request Header:
-        Authorization: Bearer TOKEN_JWT
-```
-
-```sh
-POST /ratings
-    Descrição: Rota para cadastrar uma avaliação para uma localização
-
-    Request Header:
-        Authorization: Bearer TOKEN_JWT
-
-    Request Body:
-    {
-        "localization_id": "ID da localização a ser avaliada", string
-        "rating": 4.6, float (máx 5)
-        "comment": "Um comentário sobre sua avaliacão", string (Opcional)
-    }
-```
+ 
+ Após instalar as dependencias vamos criar nosso container PostgreSQL. Abra um terminal em sua máquina e digite o comando abaixo:
+ 
+ ```sh
+ docker run --name ingaia -e POSTGRES_PASSWORD=docker -d postgres
+ ```
+ 
+ Oque está linha de comando faz e criar uma instancia do postgres, passando a variavel de ambiente com a senha, que nosso caso é docker.
+ Após realizar a criação da instância. Vamos configurar nosso env vars, dentro do terminal na pasta do projeto execute o comando abaixo:
+ 
+ ```sh
+ cp .env.example .env
+ ```
+ 
+ Após executar esse comando você poderá abrir o arquivo .env em um editor de sua preferência, para realizar as configurações das variavéis de ambiente. Feito a configuração das variaveis, execute no terminal, o seguinte comando:
+ 
+ ```sh
+ npm run typeorm migration:run
+ ```
+ 
+ O comando acima irá se certificar de criar todas as tabelas no seu banco de dados. E por fim é so executar o comando abaixo:
+ 
+ ```sh
+ npm run dev:server
+ ```
